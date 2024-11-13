@@ -1,0 +1,16 @@
+<nav class="space-x-4">
+  <% if user_signed_in? %>
+    <!-- Navigation for logged-in users -->
+    <%= link_to "Profile", edit_user_registration_path %>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+    
+    <% if current_user.admin? %>
+      <!-- Admin specific navigation -->
+      <%= link_to "Admin Dashboard", admin_dashboard_path %>
+    <% end %>
+  <% else %>
+    <!-- Navigation for guests (not logged-in users) -->
+    <%= link_to "Log in", new_session_path(resource_name) %>
+    <%= link_to "Sign up", new_registration_path(resource_name) %>
+  <% end %>
+</nav>

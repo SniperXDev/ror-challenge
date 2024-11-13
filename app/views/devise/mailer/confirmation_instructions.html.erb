@@ -1,0 +1,7 @@
+<p class="text-lg mb-4">Welcome <%= @email %>!</p>
+
+<p class="text-base mb-4">You can confirm your account email through the link below:</p>
+
+<p class="mt-4">
+  <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), class: 'inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500' %>
+</p>

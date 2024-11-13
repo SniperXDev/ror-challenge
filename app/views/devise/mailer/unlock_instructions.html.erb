@@ -1,0 +1,13 @@
+<div class="bg-yellow-50 p-6 rounded-lg shadow-md">
+  <p class="text-lg mb-4">Hello <%= @resource.email %>!</p>
+  
+  <p class="text-base mb-4">Your account has been locked due to an excessive number of unsuccessful sign-in attempts.</p>
+  
+  <p class="text-base mb-4">Click the link below to unlock your account:</p>
+  
+  <div class="mb-4">
+    <%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token), class: 'text-yellow-600 hover:underline font-semibold' %>
+  </div>
+
+  <p class="text-base">If you did not attempt to sign in, please contact our support team for further assistance.</p>
+</div>

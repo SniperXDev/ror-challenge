@@ -1,12 +1,12 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authenticate_user!, only: [ :new, :create ]
 
   def index
-    @books = Book.includes(:reviews).order(created_at: :desc).page(params[:page])
+    @books = Book.page(params[:page]).per(10)
   end
 
   def show
-    @book = Book.includes(:reviews).find(params[:id])
+    @book = Book.find(params[:id])
     @review = Review.new
   end
 
@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     if @book.save
-      redirect_to @book, notice: "Book successfully added."
+      redirect_to @book, notice: "Book was successfully created."
     else
       render :new
     end
@@ -26,6 +26,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title, :author, :publication_year, :isbn)
+    params.require(:book).permit(:title, :author, :isbn, :publication_year)
   end
 end

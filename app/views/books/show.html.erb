@@ -1,34 +1,24 @@
-<div class="container mx-auto mt-8">
-  <h1 class="text-3xl font-bold"><%= @book.title %></h1>
-  <p class="text-lg"><%= @book.author %> (<%= @book.publication_year %>)</p>
-  <p class="text-sm">ISBN: <%= @book.isbn %></p>
-  <p class="text-yellow-500"><%= '⭐' * @book.average_rating.to_i %></p>
+<div class="flex flex-col mx-auto">
+    <h1 class="text-3xl font-bold mb-4"><%= @book.title %> by <%= @book.author %></h1>
 
-  <h2 class="text-2xl mt-8">Reviews</h2>
-  <div class="reviews mt-4">
-    <% @book.reviews.each do |review| %>
-      <div class="border p-4 rounded mb-4">
-        <p class="text-sm">Rating: <%= review.rating %>/5</p>
-        <p class="text-gray-600"><%= review.content %></p>
-        <p class="text-xs text-gray-500">By <%= review.user.email %> | <%= review.created_at.strftime('%b %d, %Y') %></p>
-      </div>
-    <% end %>
+<div class="mb-6">
+  <p class="text-lg text-gray-700"><strong>Publication Year:</strong> <%= @book.publication_year %></p>
+  <p class="text-lg text-gray-700"><strong>ISBN:</strong> <%= @book.isbn %></p>
+</div>
+
+<h2 class="text-2xl font-semibold mb-4">Reviews</h2>
+
+<%= render 'reviews/form', book: @book %>
+
+<% @book.reviews.each do |review| %>
+  <div class="border-b border-gray-300 pb-4 mb-4">
+    <p class="text-xl font-semibold text-yellow-500">
+      <%= review.rating %> Stars
+    </p>
+    <p class="text-gray-700"><%= review.content %></p>
   </div>
+<% end %>
 
-  <h3 class="text-xl mt-6">Add a Review</h3>
-  <%= form_with model: [@book, @review], local: true do |form| %>
-    <div class="flex flex-col mb-4">
-      <%= form.label :rating, 'Rating' %>
-      <%= form.number_field :rating, in: 1..5, class: "border p-2 rounded w-1/4" %>
-    </div>
+<%= link_to 'Back to Books', books_path, class: 'text-blue-500 hover:underline mt-4 inline-block' %>
 
-    <div class="flex flex-col mb-4">
-      <%= form.label :content, 'Review' %>
-      <%= form.text_area :content, class: "border p-2 rounded w-full" %>
-    </div>
-
-    <div>
-      <%= form.submit 'Submit', class: "bg-blue-500 text-white p-2 rounded" %>
-    </div>
-  <% end %>
 </div>
