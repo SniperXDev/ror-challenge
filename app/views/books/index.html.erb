@@ -9,18 +9,35 @@
     <%= submit_tag "Search", class: "ml-2 px-4 py-2 bg-blue-500 text-white rounded" %>
   <% end %>
 
-   <ul class="space-y-4 mt-6">
+  <div class="flex space-x-4 mt-4">
+    <div>
+      <%= link_to 'Title', books_path(sort: 'title', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+      <%= link_to 'Title (desc)', books_path(sort: 'title', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+    </div>
+    <div>
+      <%= link_to 'Author', books_path(sort: 'author', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+      <%= link_to 'Author (desc)', books_path(sort: 'author', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+    </div>
+    <div>
+      <%= link_to 'Publication Year', books_path(sort: 'publication_year', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+      <%= link_to 'Publication Year (desc)', books_path(sort: 'publication_year', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+    </div>
+  </div>
+
+  <ul class="space-y-4 mt-6">
     <% @books.each do |book| %>
-      <li class="border-b pb-4">
-        <div class="flex justify-between items-center">
-          <div>
-            <%= link_to highlight_text(book.title, params[:query]), book_path(book), class: 'text-blue-600 hover:underline' %>
-            by 
-            <%= highlight_text(book.author, params[:query]) %>
+      <%= cache "book_#{book.id}_rating" do %>
+        <li class="border-b pb-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <%= link_to highlight_text(book.title, params[:query]), book_path(book), class: 'text-blue-600 hover:underline' %>
+              by 
+              <%= highlight_text(book.author, params[:query]) %>
+            </div>
+            <span class="text-sm text-gray-500">Rating: <%= book.average_rating %></span>
           </div>
-          <span class="text-sm text-gray-500">Rating: <%= book.average_rating %></span>
-        </div>
-      </li>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 

@@ -4,10 +4,11 @@ class BooksController < ApplicationController
   def index
     if params[:query].present?
       @books = Book.where("title LIKE ? OR author LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+                   .order(sort_params)
                    .page(params[:page])
                    .per(10)
     else
-      @books = Book.page(params[:page]).per(10)
+      @books = Book.order(sort_params).page(params[:page]).per(10)
     end
   end
 
@@ -41,5 +42,12 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(:title, :author, :isbn, :publication_year)
+  end
+
+  def sort_params
+    # default sorting by title
+    sort_column = params[:sort] || "title"
+    sort_direction = params[:direction] || "asc"
+    { sort_column => sort_direction }
   end
 end
