@@ -2,7 +2,13 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create ]
 
   def index
-    @books = Book.page(params[:page]).per(10)
+    if params[:query].present?
+      @books = Book.where("title LIKE ? OR author LIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+                   .page(params[:page])
+                   .per(10)
+    else
+      @books = Book.page(params[:page]).per(10)
+    end
   end
 
   def show
