@@ -1,0 +1,27 @@
+<div class="container mx-auto mt-8">
+  <h1 class="text-3xl font-bold mb-4">Books</h1>
+  
+  <%= form_with(url: books_path, method: :get, class: "mb-4") do %>
+    <div class="flex">
+      <input type="text" name="query" value="<%= params[:query] %>" placeholder="Search books..." class="border p-2 rounded-l w-full">
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded-r">Search</button>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @books.each do |book| %>
+      <div class="border p-4 rounded shadow-sm">
+        <h2 class="text-xl font-semibold"><%= book.title %></h2>
+        <p class="text-gray-600"><%= book.author %> (<%= book.publication_year %>)</p>
+        <p class="text-sm text-gray-500">ISBN: <%= book.isbn %></p>
+        <p class="text-yellow-500"><%= '⭐' * book.average_rating.to_i %></p>
+
+        <%= link_to 'View', book_path(book), class: "bg-blue-500 text-white p-2 rounded block mt-4 text-center" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6">
+    <%= paginate @books %>
+  </div>
+</div>

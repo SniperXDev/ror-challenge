@@ -4,5 +4,15 @@ class Review < ApplicationRecord
 
   validates :rating, presence: true, inclusion: { in: 1..5 }
   validates :content, presence: true
-  validates :user_id, uniqueness: { scope: :book_id, message: "can only review a book once" }
+  validates_uniqueness_of :user_id, scope: :book_id
+
+  validate :user_not_reviewed_book
+
+  private
+
+  def user_not_reviewed_book
+    if Review.exists?(user_id: user.id, book_id: book.id)
+      errors.add(:base, "You have already reviewed this book")
+    end
+  end
 end

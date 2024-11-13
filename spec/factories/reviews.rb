@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :review do
-    rating { 1 }
-    content { "MyText" }
-    book { nil }
-    user { nil }
+    rating { 4 }
+    content { "Great book!" }
+    association :book
+    association :user
   end
 end

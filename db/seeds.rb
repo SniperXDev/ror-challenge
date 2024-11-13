@@ -7,3 +7,10 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+User.create!(email: 'admin@example.com', password: 'password')
+
+Book.create!([
+  { title: 'Book 1', author: 'Author 1', publication_year: 2000, isbn: '1234567890' },
+  { title: 'Book 2', author: 'Author 2', publication_year: 2010, isbn: '1234567890123' }
+])
