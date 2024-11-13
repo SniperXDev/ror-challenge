@@ -1,0 +1,14 @@
+<div class="flex space-x-4 mt-4">
+  <div>
+    <%= link_to 'Title', books_path(sort: 'title', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+    <%= link_to 'Title (desc)', books_path(sort: 'title', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+  </div>
+  <div>
+    <%= link_to 'Author', books_path(sort: 'author', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+    <%= link_to 'Author (desc)', books_path(sort: 'author', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+  </div>
+  <div>
+    <%= link_to 'Publication Year', books_path(sort: 'publication_year', direction: 'asc'), class: 'text-blue-500 hover:underline' %> | 
+    <%= link_to 'Publication Year (desc)', books_path(sort: 'publication_year', direction: 'desc'), class: 'text-blue-500 hover:underline' %>
+  </div>
+</div>

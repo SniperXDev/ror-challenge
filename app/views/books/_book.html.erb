@@ -1,0 +1,10 @@
+<li class="border-b pb-4">
+  <div class="flex justify-between items-center">
+    <div>
+      <%= link_to highlight_text(book.title, params[:query]), book_path(book), class: 'text-blue-600 hover:underline' %>
+      by 
+      <%= highlight_text(book.author, params[:query]) %>
+    </div>
+    <span class="text-sm text-gray-500">Rating: <%= book.average_rating %></span>
+  </div>
+</li>

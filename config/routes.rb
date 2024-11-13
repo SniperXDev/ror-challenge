@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :books do
-    resources :reviews, only: [ :create ]
+    resources :reviews, only: [ :new, :create, :edit, :update, :destroy ]
   end
 
   root "books#index"
+  get "users/sign_out", to: redirect("/"), as: :sign_out
 end
