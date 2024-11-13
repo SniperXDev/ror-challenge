@@ -11,7 +11,7 @@ class Review < ApplicationRecord
   private
 
   def user_not_reviewed_book
-    if Review.exists?(user_id: user.id, book_id: book.id)
+    if self.class.exists?(user_id: user.id, book_id: book.id)
       errors.add(:base, "You have already reviewed this book")
     end
   end

@@ -1,13 +1,31 @@
-<%= form_with model: [ @book, @review ], local: true do |form| %>
+<%= form_with model: [ @book, @review ], local: false do |form| %>
   <div class="mb-4">
     <%= form.label :rating, class: 'block text-lg font-medium text-gray-700' %>
     <%= form.number_field :rating, min: 1, max: 5, required: true, class: 'mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500' %>
+    
+    <% if @review.errors[:rating].any? %>
+      <div class="text-red-500 text-sm mt-1">
+        <%= @review.errors[:rating].join(", ") %>
+      </div>
+    <% end %>
   </div>
   
   <div class="mb-4">
     <%= form.label :content, class: 'block text-lg font-medium text-gray-700' %>
     <%= form.text_area :content, required: true, class: 'mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500' %>
+    
+    <% if @review.errors[:content].any? %>
+      <div class="text-red-500 text-sm mt-1">
+        <%= @review.errors[:content].join(", ") %>
+      </div>
+    <% end %>
   </div>
+
+  <% if @review.errors[:base].any? %>
+    <div class="text-red-500 text-sm mt-1">
+      <%= @review.errors[:base].join(", ") %>
+    </div>
+  <% end %>
 
   <%= form.submit 'Submit Review', class: 'w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500' %>
 <% end %>

@@ -9,13 +9,14 @@
     <%= submit_tag "Search", class: "ml-2 px-4 py-2 bg-blue-500 text-white rounded" %>
   <% end %>
 
-  <ul class="space-y-4 mt-6">
+   <ul class="space-y-4 mt-6">
     <% @books.each do |book| %>
       <li class="border-b pb-4">
         <div class="flex justify-between items-center">
           <div>
-            <%= highlight_text(book.title, params[:query]) %> 
-            by <%= highlight_text(book.author, params[:query]) %>
+            <%= link_to highlight_text(book.title, params[:query]), book_path(book), class: 'text-blue-600 hover:underline' %>
+            by 
+            <%= highlight_text(book.author, params[:query]) %>
           </div>
           <span class="text-sm text-gray-500">Rating: <%= book.average_rating %></span>
         </div>

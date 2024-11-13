@@ -22,12 +22,20 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
+
     if @book.save
-      redirect_to @book, notice: "Book was successfully created."
+      respond_to do |format|
+        format.html { redirect_to @book, notice: "Book was successfully created." }
+        format.turbo_stream { redirect_to @book, notice: "Book was successfully created." }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("new_book_form", partial: "books/form", locals: { book: @book }) }
+      end
     end
   end
+
 
   private
 
